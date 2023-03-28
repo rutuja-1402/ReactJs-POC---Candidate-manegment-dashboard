@@ -94,7 +94,7 @@ function Home() {
                 style={{ display: 'block', position: 'initial' }}>
                 <Modal.Dialog>
                     <Modal.Header closeButton onClick={() => setshowmodal(false)}> 
-                        <Modal.Title> <Stack direction="row" spacing={5}  ><Avatar src={profilepicture} />{selectdata.name}  </Stack></Modal.Title>
+                        <Modal.Title> <Stack direction="row" spacing={4}  ><Avatar src={profilepicture} />{selectdata.name}  </Stack></Modal.Title>
                     </Modal.Header>
 
                     <Modal.Body style={{ backgroundImage: `url(${profilepicture})`, color: 'white', backgroundColor:'#2e93898c' } }>
@@ -234,7 +234,7 @@ const Edit =({editdatamodal, setfetchdata})=>{
             <NavigationBar setIsAddBtnClicked={setIsAddBtnClicked} setshowedit={setshowedit} setshowmodal={setshowmodal}     ></NavigationBar>
             <Container>
         <Row>
-                    <Col>
+                    <Col sm={4}>
                     {isLoading && <PageLoader isLoading={isLoading}></PageLoader>}
                         { !isLoading &&
                             fetchdata.map((details)=>{
@@ -264,7 +264,7 @@ const Edit =({editdatamodal, setfetchdata})=>{
                         }
                     </Col>
                     
-        <Col>
+        <Col sm={8}>
                         {showmodal && <ModalComponent></ModalComponent>}
                         {showedit && <Edit editdatamodal={editdatamodal} fetchdata={fetchdata} setfetchdata={setfetchdata}></Edit>}
                         {isAddBtnClicked && <Add setfetchdata={setfetchdata} setIsLoading={setIsLoading} ></Add>}

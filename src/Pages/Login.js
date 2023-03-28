@@ -8,7 +8,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-
+import loginSvg from '../Asets/login.svg'
 
 function Login() {
   const navigate = useNavigate();
@@ -32,13 +32,13 @@ function Login() {
   }, [])
   
   return (
-    <div style={{position:'relative', bottom:-150 }}  >
-      <Card className='logincard' sx={{ maxWidth:600, margin: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <div style={{position:'relative', bottom:-70 }}  >
+      <Card className='logincard' sx={{ maxWidth:700,height:500 , margin: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <CardMedia
           component="img"
           alt="Login"
-          height="140"
-          image="https://templateyou.com/wp-content/uploads/2022/09/Free-Pure-CSS-Avatar-660x330.webp"
+          height="330"
+          image={loginSvg}
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">

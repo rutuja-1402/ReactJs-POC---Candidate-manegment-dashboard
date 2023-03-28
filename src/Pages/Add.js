@@ -5,13 +5,22 @@ import SlimSelect from 'slim-select'
 import AddIcon from '@mui/icons-material/Add';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import Tooltip from '@mui/material/Tooltip';
-import { DateRangePicker } from 'react-date-range';
+// import { DateRangePicker } from 'react-date-range';
 import axios from 'axios';
 import Swal from 'sweetalert2'
+import { Link } from 'react-router-dom';
+import InputGroup from 'react-bootstrap/InputGroup';
+import { useFormik } from 'formik';
+import Personaldatafrom from './Personaldatafrom';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import { DateRangePicker } from 'rsuite';
+import "rsuite/dist/rsuite.min.css";
 
 
 
-const From = ({step, setfetchdata, setIsLoading}) => {
+const From = ({ setstep , step, setfetchdata, setIsLoading}) => {
     const [datepicker, setdatepicker] = useState([
         {
           startDate: new Date(),
@@ -84,24 +93,7 @@ const From = ({step, setfetchdata, setIsLoading}) => {
     function handleAddExperience() {
         setNumEntries(numEntries + 1);
     }
-    const handlePersonalChange=(event)=>{
-        debugger
-        setsubmitdata({ ...submitdata, [event.target.name]: event.target.value })
 
-    }
-    const[submitdata,setsubmitdata]=useState({
-        id:'',
-        profile_picture:'',
-        name:'',
-        address:'',
-        phone: "", 
-        email: "", 
-        gender: "",
-        hobbies: [], 
-        education: [],
-        skills:[], 
-        experience:[]
-    })
 
     const submitformdata=()=>{
         // alert("yes")
@@ -112,50 +104,28 @@ const From = ({step, setfetchdata, setIsLoading}) => {
             );
             getdata();
         console.log(res)
+        setsubmitdata("");
         
         })
     }
 
-
+    const [submitdata, setsubmitdata] = useState({
+        id: '',
+        profile_picture: '',
+        name: '',
+        address: '',
+        phone: "",
+        email: "",
+        gender: "",
+        hobbies: [],
+        education: [],
+        skills: [],
+        experience: []
+    })
 
     switch (step) {
         case 1:
-            return <div style={{ width: 'auto',margin:'auto', textAlign: 'start' ,position:'relative' , top:'50px'}}>
-                <h2>Personal Details</h2>
-                <Form >
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>ID</Form.Label>
-                        <Form.Control type="text" placeholder="Enter id" name="id" value={submitdata.id} onChange={(event) => handlePersonalChange(event)} />
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>Photo</Form.Label>
-                        <Form.Control type="file" placeholder="" name='profile_photo' value={submitdata.profile_picture} onChange={(event) => handlePersonalChange(event)} />
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="formBasicPassword">
-                        <Form.Label>Name</Form.Label>
-                        <Form.Control type="text" placeholder="Name" name='name' value={submitdata.name} onChange={(event) => handlePersonalChange(event)} />
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Label>Email address</Form.Label>
-                        <Form.Control type="email" placeholder="Enter email" name='email' value={submitdata.email} onChange={(event) => handlePersonalChange(event)} />
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                        <Form.Label>Select Gender</Form.Label>
-                        <br/>
-                        <input type="radio" id="male" name="male" value={submitdata.gender} onChange={(event) => handlePersonalChange(event)} />
-                            <label for="male">Male</label><br/>
-                                <input type="radio" id="Female" name="female" value="Female"/>
-                                    <label for="female">Female</label><br/>
-        </Form.Group>
-                    <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                        <Form.Label>Select your hobbies</Form.Label>
-                        <select id="multiple" multiple value={submitdata.hobbies} name="hobbies" onChange={(event) => handlePersonalChange(event)} >
-                        <option value="value1" name='value' >please select ....</option>
-                        </select>
-
-                    </Form.Group>
-                </Form>
-            </div>
+            return <Personaldatafrom setstep={setstep} step={step} setsubmitdata={setsubmitdata} submitdata={submitdata}></Personaldatafrom>
 
         case 2:
             return <div style={{ width: 'auto', margin: 'auto', textAlign: 'start', position: 'relative', top: '50px' }}>
@@ -163,39 +133,50 @@ const From = ({step, setfetchdata, setIsLoading}) => {
                 {education.map((edu, index) => {
                     return (
                         <div key={index}>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label>Name of School/College/Institute</Form.Label>
-                            <Form.Control 
-                                type="text"
-                                placeholder="Name of School/College/Institute"
-                                name="schoolName"
-                                value={edu.schoolName}
-                                onChange={(event) => handleEducationChange(event, index)}
-                            />
-                            </Form.Group>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label>Year of Graduation</Form.Label>
-                            <Form.Control 
-                                type="text"
-                                placeholder="Year of Graduation"
-                                name="yearOfGraduation"
-                                value={edu.yearOfGraduation}
-                                onChange={(event) => handleEducationChange(event, index)}
-                            />
-                            </Form.Group>
-                             <div>
-                                {index !== 0 && (
-                                    <Tooltip title='Click to remove inpute filed'>
-                                        <Button variant='outline' onClick={() => removeEducation(index)}><RemoveCircleOutlineIcon></RemoveCircleOutlineIcon></Button>
+                            <Container>
+                                <Row>
+                                    <Col md={5} >
+                                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                                        <Form.Label>Name of Institute</Form.Label>
+                                        <Form.Control
+                                            type="text"
+                                            placeholder="Name of School/College/Institute"
+                                            name="schoolName"
+                                            value={edu.schoolName}
+                                            onChange={(event) => handleEducationChange(event, index)}
+                                        />
+                                    </Form.Group></Col>
+                                    <Col md={5}>
+                                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                                            <Form.Label>Year of Graduation</Form.Label>
+                                            <Form.Control
+                                                type="text"
+                                                placeholder="Year of Graduation"
+                                                name="yearOfGraduation"
+                                                value={edu.yearOfGraduation}
+                                                onChange={(event) => handleEducationChange(event, index)}
+                                            />
+                                        </Form.Group>
+                                    </Col>
+                                    <Col md={1} > <Tooltip title="Click to add more inpute">
+                                        <Button variant='outline' onClick={addEducation}><AddIcon ></AddIcon></Button>
                                     </Tooltip>
-                                )}
-                            </div>
+                                    </Col>
+                                    <Col md={1}>  <div>
+                                        {index !== 0 && (
+                                            <Tooltip title='Click to remove inpute filed'>
+                                                <Button variant='outline' onClick={() => removeEducation(index)}><RemoveCircleOutlineIcon></RemoveCircleOutlineIcon></Button>
+                                            </Tooltip>
+                                        )}
+                                    </div></Col>
+                                    
+                                </Row>
+                            </Container>
+                           
                         </div>
                     );
                 })}
-                <Tooltip title="Click to add more inpute">
-                     <Button variant='outline' onClick={addEducation}><AddIcon ></AddIcon></Button>
-                </Tooltip>
+            
             </div>
             case 3:
             return <div style={{ width: 'auto', margin: 'auto', textAlign: 'start', position: 'relative', top: '50px' }}>
@@ -203,45 +184,52 @@ const From = ({step, setfetchdata, setIsLoading}) => {
                 {skills.map((skill, index) => {
                     return (
                         <div key={index}>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label>Name Of Skill</Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Name of Skill"
-                                name="skillName"
-                                value={skill.skillName}
-                                onChange={(event) => handleSkillChange(event, index)}
-                            />
-                            </Form.Group>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label>Experience in months</Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Experience in months"
-                                name="experienceInMonths"
-                                value={skill.experienceInMonths}
-                                onChange={(event) => handleSkillChange(event, index)}
-                            />
-                            </Form.Group>
-                            <div>
-                                
-                                    {index !== 0 && (
-                                    <Tooltip title='Click to remove inpute filed'>
-                                        <Button variant='outline' onClick={() => setSkills(skills.filter((s, i) => i !== index))}>
-                                            <RemoveCircleOutlineIcon></RemoveCircleOutlineIcon>
-                                        </Button>
-                                    </Tooltip>
-                                    )}
-                                </div>
-                        </div>
+                        <Container>
+                            <Row>
+                                <Col md={5}>
+                                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                                            <Form.Label>Name Of Skill</Form.Label>
+                                            <Form.Control
+                                                type="text"
+                                                placeholder="Name of Skill"
+                                                name="skillName"
+                                                value={skill.skillName}
+                                                onChange={(event) => handleSkillChange(event, index)}
+                                            />
+                                        </Form.Group>
+                                </Col>
+                                <Col md={5}>
+                                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                                            <Form.Label>Experience in months</Form.Label>
+                                            <DateRangePicker placeholder="Select Date Range" name="experienceInMonths"
+                                                value={skill.experienceInMonths}
+                                                onChange={(event) => handleSkillChange(event, index)} />
+                                        </Form.Group>
+                                </Col>
+                                <Col md={1}>
+                                        <Tooltip title='Click here to add inpute '>
+                                            <Button variant='outline' onClick={addSkill}>
+                                                <AddIcon></AddIcon>
+                                            </Button>
+                                        </Tooltip>
+                                </Col>
+                                <Col md={1}>
+                                        <div>
+                                            {index !== 0 && (
+                                                <Tooltip title='Click to remove inpute filed'>
+                                                    <Button variant='outline' onClick={() => setSkills(skills.filter((s, i) => i !== index))}>
+                                                        <RemoveCircleOutlineIcon></RemoveCircleOutlineIcon>
+                                                    </Button>
+                                                </Tooltip>
+                                            )}
+                                        </div>
+                                </Col>
+                            </Row>
+                        </Container>
+                    </div>
                     );
                 })}
-                <Tooltip title='Click here to add inpute '>
-                <Button variant='outline' onClick={addSkill}>
-                        <AddIcon></AddIcon>
-                </Button>
-                </Tooltip>
-                </div>
+             </div>
 
              case 4:
             return <div style={{ width: 'auto', margin: 'auto', textAlign: 'start', position: 'relative', top: '50px' }}>
@@ -250,15 +238,13 @@ const From = ({step, setfetchdata, setIsLoading}) => {
                     <div key={index}>
                         <Form.Label>Company Name</Form.Label>
                         <Form.Control type="text" />
-
                         <Form.Label>Project Name</Form.Label>
-          
                         <Form.Control type="text" />
 
                         <Form.Label>Role</Form.Label>
                         <Form.Control type="text" />
-
                         <Form.Label>Duration Range in Months</Form.Label>
+                        <br/>
                         <DateRangePicker
                             onChange={item => setdatepicker([item.selection])}
                             editableDateInputs={true}
@@ -278,12 +264,10 @@ const From = ({step, setfetchdata, setIsLoading}) => {
                         </div>
                     </div>
                 ))}
-
                 {numEntries < 10 && (
                     <Button variant='outline' onClick={handleAddExperience}><AddIcon></AddIcon></Button>
                 )}
-
-                <Button variant='outlinr' type='submit' onClick={submitformdata}  >Submit</Button> 
+                {/* <Button variant='outline' type='submit' onClick={submitformdata}  >Submit</Button>  */}
             </div>
 
 
@@ -305,10 +289,11 @@ function Add({setfetchdata, setIsLoading}) {
 
     return (
         <div>
-            <From step={step} setfetchdata={setfetchdata} setIsLoading={setIsLoading}></From>
-            <div style={{position:'relative' ,top:'50px' }}>
-                <Button variant="outlined" onClick={() => { if(step > 1)  setstep(step - 1) }}>Previous</Button>
-                <Button variant="outlined" onClick={() => { if(step < 4) setstep(step + 1) }}>Next</Button>
+            <From setstep={setstep} step={step} setfetchdata={setfetchdata} setIsLoading={setIsLoading}></From>
+            <div style={{position:'relative' ,top:'50px'}}>
+                <Button variant="light" onClick={() => { if (step > 1) setstep(step - 1) }} disabled={(step === 1) ? true : false} style={{ marginRight: '10px' }}>Previous</Button>
+                <Button variant="light" onClick={() => { if (step < 4) setstep(step + 1) }} disabled={(step === 4) ? true : false} style={(step === 4) ? { display:'none'} : undefined }>Next</Button>
+                {(step === 4) && <Button variant='outline' type='submit'>Submit</Button> }
             </div>
         </div>
     )
