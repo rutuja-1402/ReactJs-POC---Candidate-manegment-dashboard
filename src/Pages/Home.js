@@ -94,7 +94,7 @@ function Home() {
                 style={{ display: 'block', position: 'initial' }}>
                 <Modal.Dialog>
                     <Modal.Header closeButton onClick={() => setshowmodal(false)}> 
-                        <Modal.Title> <Stack direction="row" spacing={4}  ><Avatar src={profilepicture} />{selectdata.name}  </Stack></Modal.Title>
+                        <Modal.Title> <Stack direction="row" spacing={4}  ><Avatar style={{ border: '2px solid black' }} src={profilepicture} />{selectdata.name}  </Stack></Modal.Title>
                     </Modal.Header>
 
                     <Modal.Body style={{ backgroundImage: `url(${profilepicture})`, color: 'white', backgroundColor:'#2e93898c' } }>
@@ -241,13 +241,20 @@ const Edit =({editdatamodal, setfetchdata})=>{
                                 const { profile_picture, name, id, email}=details
                                 return(
                                     <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }} >
-                                        <ListItem className='listitem '  >
+                                        <ListItem className='listitem ' onClick={() => { seteditdatamodal({
+                                                                                    id:id,
+                                                                                    name: name,
+                                                                                    address: '',
+                                                                                    phone: '',
+                                                                                    email: email,
+                                                                                
+                                            })}}>
                                             <ListItemAvatar>
-                                                <Avatar>
-                                                   <img src={profile_picture}></img>
+                                                <Avatar style={{ border: '2px solid white' }}>
+                                                   <img src={profile_picture}  ></img>
                                                 </Avatar>
                                             </ListItemAvatar>
-                                            <ListItemText className='listdata' primary={name} onClick={() => { setshowmodal(true); setshowedit(false); showdata(id); setIsAddBtnClicked(false) }}/>
+                                            <ListItemText className='listdata' primary={name} style={{color:'black'}} onClick={() => { setshowmodal(true); setshowedit(false); showdata(id); setIsAddBtnClicked(false) }}/>
                                             <CreateIcon onClick={() => { seteditdatamodal({
                                                                                     id:id,
                                                                                     name: name,

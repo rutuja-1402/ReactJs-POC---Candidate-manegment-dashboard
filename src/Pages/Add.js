@@ -290,11 +290,7 @@ function Add({setfetchdata, setIsLoading}) {
     return (
         <div>
             <From setstep={setstep} step={step} setfetchdata={setfetchdata} setIsLoading={setIsLoading}></From>
-            <div style={{position:'relative' ,top:'50px'}}>
-                <Button variant="light" onClick={() => { if (step > 1) setstep(step - 1) }} disabled={(step === 1) ? true : false} style={{ marginRight: '10px' }}>Previous</Button>
-                <Button variant="light" onClick={() => { if (step < 4) setstep(step + 1) }} disabled={(step === 4) ? true : false} style={(step === 4) ? { display:'none'} : undefined }>Next</Button>
-                {(step === 4) && <Button variant='outline' type='submit'>Submit</Button> }
-            </div>
+
         </div>
     )
 }

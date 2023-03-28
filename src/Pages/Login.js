@@ -10,6 +10,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import loginSvg from '../Asets/login.svg'
 
+
 function Login() {
   const navigate = useNavigate();
   const googleAuth = JSON.parse(localStorage.getItem("auth")) || {};
@@ -32,7 +33,8 @@ function Login() {
   }, [])
   
   return (
-    <div style={{position:'relative', bottom:-70 }}  >
+
+    <div style={{position:'relative', bottom:-70}}  >
       <Card className='logincard' sx={{ maxWidth:700,height:500 , margin: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <CardMedia
           component="img"
