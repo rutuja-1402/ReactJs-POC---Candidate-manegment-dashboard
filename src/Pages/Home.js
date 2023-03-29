@@ -49,6 +49,7 @@ function PageLoader({isLoading}) {
     );
   }
 
+
 //Home component
 
 function Home() {

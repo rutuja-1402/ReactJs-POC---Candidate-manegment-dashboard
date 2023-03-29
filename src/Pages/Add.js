@@ -17,6 +17,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { DateRangePicker } from 'rsuite';
 import "rsuite/dist/rsuite.min.css";
+import EducationDeatils from './EducationDeatils';
 
 
 
@@ -82,7 +83,7 @@ const From = ({ setstep , step, setfetchdata, setIsLoading}) => {
     };
 
     const handleSkillChange = (event, index) => {
-        const { name, value } = event.target;
+        const { name, value } = event?.target;
         const list = [...skills];
         list[index][name] = value;
         setSkills(list);
@@ -128,24 +129,25 @@ const From = ({ setstep , step, setfetchdata, setIsLoading}) => {
             return <Personaldatafrom setstep={setstep} step={step} setsubmitdata={setsubmitdata} submitdata={submitdata}></Personaldatafrom>
 
         case 2:
+            // return <EducationDeatils setstep={setstep} step={step} education={education} set={setEducation}></EducationDeatils>
             return <div style={{ width: 'auto', margin: 'auto', textAlign: 'start', position: 'relative', top: '50px' }}>
                 <h2>Education</h2>
-                {education.map((edu, index) => {
+                {education && education.map((edu, index) => {
                     return (
                         <div key={index}>
                             <Container>
                                 <Row>
                                     <Col md={5} >
-                                    <Form.Group className="mb-3" controlId="formBasicEmail">
-                                        <Form.Label>Name of Institute</Form.Label>
-                                        <Form.Control
-                                            type="text"
-                                            placeholder="Name of School/College/Institute"
-                                            name="schoolName"
-                                            value={edu.schoolName}
-                                            onChange={(event) => handleEducationChange(event, index)}
-                                        />
-                                    </Form.Group></Col>
+                                        <Form.Group className="mb-3" controlId="formBasicEmail">
+                                            <Form.Label>Name of Institute</Form.Label>
+                                            <Form.Control
+                                                type="text"
+                                                placeholder="Name of School/College/Institute"
+                                                name="schoolName"
+                                                value={edu.schoolName}
+                                                onChange={(event) => handleEducationChange(event, index)}
+                                            />
+                                        </Form.Group></Col>
                                     <Col md={5}>
                                         <Form.Group className="mb-3" controlId="formBasicEmail">
                                             <Form.Label>Year of Graduation</Form.Label>
@@ -169,16 +171,20 @@ const From = ({ setstep , step, setfetchdata, setIsLoading}) => {
                                             </Tooltip>
                                         )}
                                     </div></Col>
-                                    
+
                                 </Row>
                             </Container>
-                           
+
                         </div>
                     );
                 })}
-            
+                <div style={{ position: 'relative', top: '50px' }}>
+                    <Button variant="light" onClick={() => { if (step > 1) setstep(step - 1) }} disabled={(step === 1) ? true : false} style={{ marginRight: '10px' }}>Previous</Button>
+                    <Button variant="light" onClick={() => { if (step < 4) { setstep(step + 1) } }} style={(step === 4) ? { display: 'none' } : undefined} >Next</Button>
+                    {(step === 4) && <Button variant='outline' type='submit'>Submit</Button>}
+                </div>
             </div>
-            case 3:
+        case 3:
             return <div style={{ width: 'auto', margin: 'auto', textAlign: 'start', position: 'relative', top: '50px' }}>
                 <h2>Skills</h2>
                 {skills.map((skill, index) => {
@@ -290,7 +296,6 @@ function Add({setfetchdata, setIsLoading}) {
     return (
         <div>
             <From setstep={setstep} step={step} setfetchdata={setfetchdata} setIsLoading={setIsLoading}></From>
-
         </div>
     )
 }
