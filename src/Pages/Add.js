@@ -18,10 +18,9 @@ import Col from 'react-bootstrap/Col';
 import { DateRangePicker } from 'rsuite';
 import "rsuite/dist/rsuite.min.css";
 import EducationDeatils from './EducationDeatils';
+import Validation from "./Validation";
 
-
-
-const From = ({ setstep , step, setfetchdata, setIsLoading}) => {
+const From = ({ setstep , step, setfetchdata, setIsLoading, userData}) => {
     const [datepicker, setdatepicker] = useState([
         {
           startDate: new Date(),
@@ -82,11 +81,28 @@ const From = ({ setstep , step, setfetchdata, setIsLoading}) => {
         setSkills([...skills, { skillName: '', experienceInMonths: '' }]);
     };
 
-    const handleSkillChange = (event, index) => {
-        const { name, value } = event?.target;
-        const list = [...skills];
-        list[index][name] = value;
-        setSkills(list);
+    // const handleSkillChange = (event, index) => {
+    //     const { name, value } = event?.target;
+    //     const list = [...skills];
+    //     list[index][name] = value;
+    //     setSkills(list);
+    // };
+
+    const handleSkillChange = (event, index, config = { isDatePicker: false, name: "" }) => {
+        debugger
+        if (config.isDatePicker) {
+            const name = config.name;
+            const list = [...skills];
+            list[index][name] = event;  // event => value for datepicker
+            setSkills(list);
+
+        } else {
+            const { name, value } = event?.target;
+            const list = [...skills];
+            list[index][name] = value;
+            setSkills(list);
+        }
+        console.log(skills)
     };
 
     const [numEntries, setNumEntries] = useState(1);
@@ -124,6 +140,23 @@ const From = ({ setstep , step, setfetchdata, setIsLoading}) => {
         experience: []
     })
 
+    const [eduerrors, setEduerrors] = useState()
+
+    const educationValidator = () => {
+        alert("called")
+        // const errors = validateForm();
+        setEduerrors(Validation(education));
+    }
+
+    useEffect(()=>{
+        if(userData != null || userData != undefined){
+            setsubmitdata({...submitdata, ...userData})
+            debugger
+            console.log()
+            console.log(submitdata)
+        }
+    },[userData])
+
     switch (step) {
         case 1:
             return <Personaldatafrom setstep={setstep} step={step} setsubmitdata={setsubmitdata} submitdata={submitdata}></Personaldatafrom>
@@ -146,7 +179,9 @@ const From = ({ setstep , step, setfetchdata, setIsLoading}) => {
                                                 name="schoolName"
                                                 value={edu.schoolName}
                                                 onChange={(event) => handleEducationChange(event, index)}
+                                                required
                                             />
+                                            {/* {eduerrors?.schoolName && <span style={{ color: 'red' }} >*{eduerrors.schoolName}</span>} */}
                                         </Form.Group></Col>
                                     <Col md={5}>
                                         <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -157,6 +192,7 @@ const From = ({ setstep , step, setfetchdata, setIsLoading}) => {
                                                 name="yearOfGraduation"
                                                 value={edu.yearOfGraduation}
                                                 onChange={(event) => handleEducationChange(event, index)}
+                                                required
                                             />
                                         </Form.Group>
                                     </Col>
@@ -180,7 +216,7 @@ const From = ({ setstep , step, setfetchdata, setIsLoading}) => {
                 })}
                 <div style={{ position: 'relative', top: '50px' }}>
                     <Button variant="light" onClick={() => { if (step > 1) setstep(step - 1) }} disabled={(step === 1) ? true : false} style={{ marginRight: '10px' }}>Previous</Button>
-                    <Button variant="light" onClick={() => { if (step < 4) { setstep(step + 1) } }} style={(step === 4) ? { display: 'none' } : undefined} >Next</Button>
+                    <Button variant="light" onClick={() => { if (step < 4) { setstep(step + 1) }; educationValidator ()}} style={(step === 4) ? { display: 'none' } : undefined} >Next</Button>
                     {(step === 4) && <Button variant='outline' type='submit'>Submit</Button>}
                 </div>
             </div>
@@ -207,9 +243,12 @@ const From = ({ setstep , step, setfetchdata, setIsLoading}) => {
                                 <Col md={5}>
                                         <Form.Group className="mb-3" controlId="formBasicEmail">
                                             <Form.Label>Experience in months</Form.Label>
+                                            {/* <DateRangePicker placeholder="Select Date Range" name="experienceInMonths"
+                                                value={skill.experienceInMonths}
+                                                onChange={(event) => handleSkillChange(event, index)} /> */}
                                             <DateRangePicker placeholder="Select Date Range" name="experienceInMonths"
                                                 value={skill.experienceInMonths}
-                                                onChange={(event) => handleSkillChange(event, index)} />
+                                                onChange={(event) => handleSkillChange(event, index, { isDatePicker: true, name: "experienceInMonths" })} />
                                         </Form.Group>
                                 </Col>
                                 <Col md={1}>
@@ -235,6 +274,11 @@ const From = ({ setstep , step, setfetchdata, setIsLoading}) => {
                     </div>
                     );
                 })}
+                <div style={{ position: 'relative', top: '50px' }}>
+                    <Button variant="light" onClick={() => { if (step > 1) setstep(step - 1) }} disabled={(step === 1) ? true : false} style={{ marginRight: '10px' }}>Previous</Button>
+                    <Button variant="light" onClick={() => { if (step < 4) { setstep(step + 1) } }} style={(step === 4) ? { display: 'none' } : undefined} >Next</Button>
+                    {(step === 4) && <Button variant='outline' type='submit'>Submit</Button>}
+                </div>
              </div>
 
              case 4:
@@ -274,28 +318,37 @@ const From = ({ setstep , step, setfetchdata, setIsLoading}) => {
                     <Button variant='outline' onClick={handleAddExperience}><AddIcon></AddIcon></Button>
                 )}
                 {/* <Button variant='outline' type='submit' onClick={submitformdata}  >Submit</Button>  */}
+                <div style={{ position: 'relative', top: '50px' }}>
+                    <Button variant="light" onClick={() => { if (step > 1) setstep(step - 1) }} disabled={(step === 1) ? true : false} style={{ marginRight: '10px' }}>Previous</Button>
+                    <Button variant="light" onClick={() => { if (step < 4) { setstep(step + 1) } }} style={(step === 4) ? { display: 'none' } : undefined} >Next</Button>
+                    {(step === 4) && <Button variant='outline' type='submit'>Submit</Button>}
+                </div>
             </div>
-
 
         default:
             break;
     }
 }
 
-function Add({setfetchdata, setIsLoading}) {
+function Add({setfetchdata, setIsLoading, userData}) {
     const [step, setstep] = useState(1);
 
    
 
     useEffect(()=>{
-        // debugger
-        // console.log(getdata);
+        debugger
+        console.log(userData);
     },[])  // on component initialize, runs only one time of component render
     
 
     return (
         <div>
-            <From setstep={setstep} step={step} setfetchdata={setfetchdata} setIsLoading={setIsLoading}></From>
+            <From setstep={setstep} step={step} setfetchdata={setfetchdata} setIsLoading={setIsLoading} userData={userData}></From>
+            {/* <div style={{ position: 'relative', top: '50px' }}>
+                <Button variant="light" onClick={() => { if (step > 1) setstep(step - 1) }} disabled={(step === 1) ? true : false} style={{ marginRight: '10px' }}>Previous</Button>
+                <Button variant="light" onClick={() => { if (step < 4) { setstep(step + 1) } }} style={(step === 4) ? { display: 'none' } : undefined} >Next</Button>
+                {(step === 4) && <Button variant='outline' type='submit'>Submit</Button>}
+            </div> */}
         </div>
     )
 }

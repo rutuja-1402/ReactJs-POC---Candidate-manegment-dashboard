@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState,useEffect } from "react"
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';
@@ -23,17 +23,18 @@ const Personaldatafrom = ({setstep, step,setsubmitdata ,submitdata})=>{
     // }
 
 
-    const [checkdata, setCheckdata] = useState({
-        id: '',
-        profile_picture: '',
-        name: '',
-        address: '',
-        phone: "",
-        email: "",
-        gender: "",
-        hobbies: [],
+    const [checkdata, setCheckdata] = useState(submitdata)
+    // const [checkdata, setCheckdata] = useState({
+    //     id: '',
+    //     profile_picture: '',
+    //     name: '',
+    //     address: '',
+    //     phone: "",
+    //     email: "",
+    //     gender: "",
+    //     hobbies: [],
        
-    })
+    // })
 
 
     const handlePersonalChange = (event) => {
@@ -62,8 +63,13 @@ const Personaldatafrom = ({setstep, step,setsubmitdata ,submitdata})=>{
     const handleFemaleCheckboxChange = () => {
         setIsFemaleChecked(!isFemaleChecked);
     };
+
+    useEffect(()=>{
+        debugger
+        setCheckdata({...checkdata, ...submitdata});
+    },[])
 return(
-    <div style={{backgroundColor: "white" }}>
+    
         <div id='personal_info' style={{ width: 'auto', margin: 'auto', textAlign: 'start', position: 'relative', top: '50px' }}>
             <h2>Personal Details</h2>
             <Form >
@@ -101,7 +107,7 @@ return(
                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
                     <Form.Label>Select your hobbies</Form.Label>
                     <select id="multiple" multiple value={checkdata.hobbies} name="hobbies" onChange={(event) => handlePersonalChange(event)} >
-                        <option value="value1" name='' >please select ....</option>
+                        <option value="value1" name='' >please select....</option>
                     </select>
                 </Form.Group>
             </Form>
@@ -111,7 +117,7 @@ return(
                 {(step === 4) && <Button variant='outline' type='submit'>Submit</Button>}
             </div>
         </div>
-        </div>
+      
 )
 };
 

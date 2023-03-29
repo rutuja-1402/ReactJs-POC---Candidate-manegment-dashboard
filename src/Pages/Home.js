@@ -73,6 +73,7 @@ function Home() {
     
     });
     const [isAddBtnClicked, setIsAddBtnClicked] = useState(false);
+    const [isEditBtnClicked, setIsEditBtnClicked] = useState({show:false,data:[]});
     const [isLoading, setIsLoading] = useState(true);
  
     const profilepicture=selectdata.profile_picture
@@ -256,12 +257,9 @@ const Edit =({editdatamodal, setfetchdata})=>{
                                                 </Avatar>
                                             </ListItemAvatar>
                                             <ListItemText className='listdata' primary={name} style={{color:'black'}} onClick={() => { setshowmodal(true); setshowedit(false); showdata(id); setIsAddBtnClicked(false) }}/>
-                                            <CreateIcon onClick={() => { seteditdatamodal({
-                                                                                    id:id,
-                                                                                    name: name,
-                                                                                    address: '',
-                                                                                    phone: '',
-                                                                                    email: email,
+                                            <CreateIcon onClick={() => { setIsEditBtnClicked({
+                                                                                    show:true,
+                                                                                    data:details
                                                                                 
                                             }); setshowedit(true); setshowmodal(false); setIsAddBtnClicked(false)}}  ></CreateIcon>
                                             <DeleteIcon onClick={() => deletid(id)}></DeleteIcon>
@@ -274,8 +272,9 @@ const Edit =({editdatamodal, setfetchdata})=>{
                     
         <Col sm={8}>
                         {showmodal && <ModalComponent></ModalComponent>}
-                        {showedit && <Edit editdatamodal={editdatamodal} fetchdata={fetchdata} setfetchdata={setfetchdata}></Edit>}
+                        {/* {showedit && <Edit editdatamodal={editdatamodal} fetchdata={fetchdata} setfetchdata={setfetchdata}></Edit>} */}
                         {isAddBtnClicked && <Add setfetchdata={setfetchdata} setIsLoading={setIsLoading} ></Add>}
+                        {isEditBtnClicked.show && <Add setfetchdata={setfetchdata} setIsLoading={setIsLoading} userData={isEditBtnClicked.data} ></Add>}
 
         </Col>
       </Row>
