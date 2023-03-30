@@ -20,7 +20,7 @@ import "rsuite/dist/rsuite.min.css";
 import EducationDeatils from './EducationDeatils';
 import Validation from "./Validation";
 
-const From = ({ setstep , step, setfetchdata, setIsLoading, userData}) => {
+const From = ({ setstep, step, setfetchdata, setIsLoading, userData, setselectdata }) => {
     const [datepicker, setdatepicker] = useState([
         {
           startDate: new Date(),
@@ -142,11 +142,11 @@ const From = ({ setstep , step, setfetchdata, setIsLoading, userData}) => {
 
     const [eduerrors, setEduerrors] = useState()
 
-    const educationValidator = () => {
-        alert("called")
-        // const errors = validateForm();
-        setEduerrors(Validation(education));
-    }
+    // const educationValidator = () => {
+    //     alert("called")
+    //     // const errors = validateForm();
+    //     setEduerrors(Validation(education));
+    // }
 
     useEffect(()=>{
         if(userData != null || userData != undefined){
@@ -159,7 +159,7 @@ const From = ({ setstep , step, setfetchdata, setIsLoading, userData}) => {
 
     switch (step) {
         case 1:
-            return <Personaldatafrom setstep={setstep} step={step} setsubmitdata={setsubmitdata} submitdata={submitdata}></Personaldatafrom>
+            return <Personaldatafrom setselectdata={setselectdata} setstep={setstep} step={step} setsubmitdata={setsubmitdata} submitdata={submitdata}></Personaldatafrom>
 
         case 2:
             // return <EducationDeatils setstep={setstep} step={step} education={education} set={setEducation}></EducationDeatils>
@@ -216,7 +216,7 @@ const From = ({ setstep , step, setfetchdata, setIsLoading, userData}) => {
                 })}
                 <div style={{ position: 'relative', top: '50px' }}>
                     <Button variant="light" onClick={() => { if (step > 1) setstep(step - 1) }} disabled={(step === 1) ? true : false} style={{ marginRight: '10px' }}>Previous</Button>
-                    <Button variant="light" onClick={() => { if (step < 4) { setstep(step + 1) }; educationValidator ()}} style={(step === 4) ? { display: 'none' } : undefined} >Next</Button>
+                    <Button variant="light" onClick={() => { if (step < 4) { setstep(step + 1) }}} style={(step === 4) ? { display: 'none' } : undefined} >Next</Button>
                     {(step === 4) && <Button variant='outline' type='submit'>Submit</Button>}
                 </div>
             </div>

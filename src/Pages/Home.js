@@ -31,6 +31,13 @@ import Stack from '@mui/material/Stack';
 import Add from "../Pages/Add";
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
+import PersonIcon from '@mui/icons-material/Person';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import PhoneIcon from '@mui/icons-material/Phone';
+import InterestsIcon from '@mui/icons-material/Interests';
+import Face3Icon from '@mui/icons-material/Face3';
+import FaceIcon from '@mui/icons-material/Face';
+
 
 
 //implementation of page loader
@@ -96,9 +103,67 @@ function Home() {
                 style={{ display: 'block', position: 'initial' }}>
                 <Modal.Dialog>
                     <Modal.Header closeButton onClick={() => setshowmodal(false)}> 
-                        <Modal.Title> <Stack direction="row" spacing={4}  ><Avatar style={{ border: '2px solid black' }} src={profilepicture} />{selectdata.name}  </Stack></Modal.Title>
+                        <Modal.Title>
+                             <Stack direction="row" spacing={4} >
+                                <Avatar style={{
+                                    border: '2px solid black', height:'100px',
+                                    width:'100px'}} src={profilepicture} />
+                                <h2 style={{ margin: 'auto', position: 'relative', right: '-34px', color: 'black', fontWeight:'unset'}}> {selectdata.name}</h2>
+                             </Stack>
+                        </Modal.Title>
                     </Modal.Header>
-
+                    <Modal.Body>
+                      <div style={{display:'flex'}}>
+                            <div>
+                                {/* <h2>Personal info</h2> */}
+                                <ListGroup variant="flush"style={{textAlign:'justify'}} >
+                                    <ListGroup.Item><PersonIcon/>:{selectdata.name}</ListGroup.Item>
+                                    <ListGroup.Item><LocationOnIcon/>:{selectdata.address}</ListGroup.Item>
+                                    <ListGroup.Item><PhoneIcon/>:{selectdata.phone}</ListGroup.Item>
+                                    <ListGroup.Item>{(selectdata.gender === 'male' || 'Male') ? <FaceIcon /> :<Face3Icon />} :{selectdata.gender}</ListGroup.Item>
+                                    <ListGroup.Item><InterestsIcon/>:{selectdata.hobbies}</ListGroup.Item>
+                                    {/* <ListGroup.Item>{selectdata.gender}</ListGroup.Item> */}
+                                </ListGroup>
+                            </div>
+                            <div className='Education'>
+                                <div  >
+                                    {/* <h3>Education</h3> */}
+                                    <Table striped bordered hover>
+                                        <thead>
+                                            <tr>
+                                                <th>Institute Name</th>
+                                                <th>Year of passing</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                             {
+                                                fetchdata.map((details) => {
+                                                    console.log(details)
+                                                    return (
+                                                        <tr>
+                                                            {/* <td>{details.education[0]}</td> */}
+                                                        </tr>
+                                                    )
+                                                })
+                                             }
+                                        </tbody>
+                                    </Table>
+                                </div>
+                                <div className='Skill'>
+                                    {/* <h3>Skills</h3> */}
+                                    <Table striped bordered hover size="sm" >
+                                        <thead>
+                                            <tr>
+                                                <th>Skill</th>
+                                                <th>Experience in months</th>
+                                            </tr>
+                                        </thead>
+                                    </Table>
+                                </div>
+                            </div>
+                      </div>
+                    </Modal.Body>
+{/* 
                     <Modal.Body style={{ backgroundImage: `url(${profilepicture})`, color: 'white', backgroundColor:'#2e93898c' } }>
                         <ul type='none' >
                             <li>Name : {selectdata.name}</li>
@@ -109,7 +174,7 @@ function Home() {
                             <li>Hobbies :  {selectdata.hobbies}</li>
 
                         </ul>
-                    </Modal.Body>
+                    </Modal.Body> */}
                     <Modal.Footer>
                         <Button variant="secondary" onClick={() => setshowmodal(false)} >Close</Button>
                     </Modal.Footer>
@@ -232,23 +297,27 @@ const Edit =({editdatamodal, setfetchdata})=>{
   },[])
 
     return (
-        <div>
-            <NavigationBar setIsAddBtnClicked={setIsAddBtnClicked} setshowedit={setshowedit} setshowmodal={setshowmodal}     ></NavigationBar>
-            <Container>
+        <div >
+            <NavigationBar  setIsAddBtnClicked={setIsAddBtnClicked} setshowedit={setshowedit} setshowmodal={setshowmodal}></NavigationBar>
+            <Container style={{
+                position: 'relative',
+                right:'30px'
+}} >
         <Row>
-                    <Col sm={4}>
+                    <Col sm={4} >
                     {isLoading && <PageLoader isLoading={isLoading}></PageLoader>}
                         { !isLoading &&
                             fetchdata.map((details)=>{
                                 const { profile_picture, name, id, email}=details
                                 return(
-                                    <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }} >
+                                    <List sx={{ width: '100%', maxWidth: 360, bgcolor:'#eee7e7' }} >
                                         <ListItem className='listitem ' onClick={() => { seteditdatamodal({
                                                                                     id:id,
                                                                                     name: name,
                                                                                     address: '',
                                                                                     phone: '',
                                                                                     email: email,
+                                                                                    education:[]
                                                                                 
                                             })}}>
                                             <ListItemAvatar>
@@ -273,7 +342,7 @@ const Edit =({editdatamodal, setfetchdata})=>{
         <Col sm={8}>
                         {showmodal && <ModalComponent></ModalComponent>}
                         {/* {showedit && <Edit editdatamodal={editdatamodal} fetchdata={fetchdata} setfetchdata={setfetchdata}></Edit>} */}
-                        {isAddBtnClicked && <Add setfetchdata={setfetchdata} setIsLoading={setIsLoading} ></Add>}
+                        {isAddBtnClicked && <Add setfetchdata={setfetchdata} setIsLoading={setIsLoading} setselectdata={setselectdata} ></Add>}
                         {isEditBtnClicked.show && <Add setfetchdata={setfetchdata} setIsLoading={setIsLoading} userData={isEditBtnClicked.data} ></Add>}
 
         </Col>

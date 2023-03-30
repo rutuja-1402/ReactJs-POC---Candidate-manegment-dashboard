@@ -4,7 +4,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';
 import Validation from "./Validation";
 
-const Personaldatafrom = ({setstep, step,setsubmitdata ,submitdata})=>{
+const Personaldatafrom = ({ setstep, step, setsubmitdata, submitdata, setselectdata })=>{
 
     const [errors, setErrors] = useState()
     // const initialValues={
@@ -42,15 +42,15 @@ const Personaldatafrom = ({setstep, step,setsubmitdata ,submitdata})=>{
         setCheckdata({ ...checkdata, [event.target.name]: event.target.value })
 
         event.preventDefault()
-        setErrors(Validation(checkdata)); //like this .?  yleopl yep
-
+        setErrors(Validation(checkdata)); 
+        setselectdata(checkdata)
     }
    
     const personaldataValidator=()=>{
         // alert("called")
         // const errors = validateForm();
         setErrors(Validation(checkdata, isMaleChecked = { isMaleChecked }, isFemaleChecked = { isFemaleChecked }));
-        
+    
         // console.log(errors.email)
     }
     let [isMaleChecked, setIsMaleChecked] = useState(false);
@@ -83,7 +83,7 @@ return(
                 </InputGroup>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Photo</Form.Label>
-                    <Form.Control type="file" accept="image/png, image/jpeg" placeholder="" name='profile_photo' value={checkdata.profile_picture} onChange={(event) => handlePersonalChange(event)} />
+                    <Form.Control type="file" accept="image/png, image/jpeg" placeholder="" name='profile_photo' />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label>Name</Form.Label>
@@ -113,7 +113,7 @@ return(
             </Form>
             <div style={{ position: 'relative', top: '50px' }}>
                 <Button variant="light" onClick={() => { if (step > 1) setstep(step - 1) }} disabled={(step === 1) ? true : false} style={{ marginRight: '10px' }}>Previous</Button>
-                <Button variant="light" onClick={() => { if (step < 4) { setstep(step + 1); personaldataValidator(); } }} disabled={(errors && Object.keys(errors).length === 0) ? true : false} style={(step === 4) ? { display: 'none' } : undefined} >Next</Button>
+                <Button variant="light" onClick={() => { if (step < 4) { setstep(step + 1); personaldataValidator(); } }} disabled={(errors && Object.keys(errors).length === 0) ? false : true} style={(step === 4) ? { display: 'none' } : undefined} >Next</Button>
                 {(step === 4) && <Button variant='outline' type='submit'>Submit</Button>}
             </div>
         </div>

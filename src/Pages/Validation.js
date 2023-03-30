@@ -1,6 +1,6 @@
 // import { id } from "./Home";
 
-export default function Validation(checkdata, isFemaleChecked, isMaleChecked, education){
+export default function Validation(checkdata, isFemaleChecked, isMaleChecked){
     console.log(checkdata)
     const errors={}
     
@@ -34,9 +34,9 @@ export default function Validation(checkdata, isFemaleChecked, isMaleChecked, ed
         errors.gender="Select one option"
     }
 
-    if (education.schoolName===""){
-        errors.schoolName="Reqired"
-    }
+    // if (education.schoolName===""){
+    //     errors.schoolName="Reqired"
+    // }
 
     return errors
 }
