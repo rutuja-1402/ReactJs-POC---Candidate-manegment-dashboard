@@ -27,6 +27,7 @@
     "react-toastify": "^9.1.2",
     "reactjs-social-login": "^2.6.2",
     "rsuite": "^5.29.0",
+    "scss-react": "^1.1.1",
     "slim-select": "^2.4.5",
     "sweetalert2": "^11.7.3",
     "web-vitals": "^2.1.4",

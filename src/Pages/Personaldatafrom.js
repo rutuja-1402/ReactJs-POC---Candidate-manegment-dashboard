@@ -3,6 +3,9 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';
 import Validation from "./Validation";
+import '../Pages/scss.scss'
+import '../Pages/login.css'
+
 
 const Personaldatafrom = ({ setstep, step, setsubmitdata, submitdata, setselectdata })=>{
 
@@ -38,19 +41,19 @@ const Personaldatafrom = ({ setstep, step, setsubmitdata, submitdata, setselectd
 
 
     const handlePersonalChange = (event) => {
-        debugger
+        // debugger
         setCheckdata({ ...checkdata, [event.target.name]: event.target.value })
-
+        
         event.preventDefault()
         setErrors(Validation(checkdata)); 
-        setselectdata(checkdata)
     }
-   
+    
     const personaldataValidator=()=>{
         // alert("called")
         // const errors = validateForm();
         setErrors(Validation(checkdata, isMaleChecked = { isMaleChecked }, isFemaleChecked = { isFemaleChecked }));
-    
+        // setselectdata(checkdata)
+        
         // console.log(errors.email)
     }
     let [isMaleChecked, setIsMaleChecked] = useState(false);
@@ -65,7 +68,7 @@ const Personaldatafrom = ({ setstep, step, setsubmitdata, submitdata, setselectd
     };
 
     useEffect(()=>{
-        debugger
+        // debugger
         setCheckdata({...checkdata, ...submitdata});
     },[])
 return(
@@ -112,8 +115,16 @@ return(
                 </Form.Group>
             </Form>
             <div style={{ position: 'relative', top: '50px' }}>
-                <Button variant="light" onClick={() => { if (step > 1) setstep(step - 1) }} disabled={(step === 1) ? true : false} style={{ marginRight: '10px' }}>Previous</Button>
-                <Button variant="light" onClick={() => { if (step < 4) { setstep(step + 1); personaldataValidator(); } }} disabled={(errors && Object.keys(errors).length === 0) ? false : true} style={(step === 4) ? { display: 'none' } : undefined} >Next</Button>
+            <div className="neon_border">
+                <span>
+                    <Button className="custom-button"  onClick={() => { if (step > 1) setstep(step - 1) }} disabled={(step === 1) ? true : false} style={{ marginRight: '10px' }}>Previous</Button>
+                </span>
+            </div>
+            <div className="neon_border">
+                <span>
+                    <Button className="custom-button" onClick={() => { if (step < 4) { setstep(step + 1); personaldataValidator(); } }} disabled={(errors && Object.keys(errors).length === 0) ? false : true} style={(step === 4) ? { display: 'none' } : undefined} >Next</Button>
+                </span>
+            </div>
                 {(step === 4) && <Button variant='outline' type='submit'>Submit</Button>}
             </div>
         </div>

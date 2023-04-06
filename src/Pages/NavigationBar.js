@@ -17,7 +17,7 @@ function NavigationBar({setIsAddBtnClicked, setshowmodal, setshowedit}) { // thi
     //     navigate('/Edit')
     // }
     return (
-        <Navbar>
+        <Navbar style={{backgroundColor:'#FCCF47'}}>
             <Container>
                 <Navbar.Brand>New candidate<Button variant="text" onClick={() => { setshowmodal(false); setshowedit(false); setIsAddBtnClicked(true)}}> <PersonAddIcon></PersonAddIcon></Button></Navbar.Brand>
                 <Navbar.Toggle />

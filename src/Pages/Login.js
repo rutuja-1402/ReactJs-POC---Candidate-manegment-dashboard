@@ -39,7 +39,7 @@ function Login() {
         <CardMedia
           component="img"
           alt="Login"
-          height="330"
+          height="346"
           image={loginSvg}
         />
         <CardContent>

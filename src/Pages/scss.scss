@@ -1,0 +1,62 @@
+.neon_border {
+    display: inline;
+    position: relative;
+    margin: 0 1em;
+    padding: 0.5em 1em;
+    outline: none;
+    font-size: 18px;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    z-index: 1;
+    cursor: pointer;
+
+    &:before,
+    &:after,
+    span:before,
+    span:after {
+        content: "";
+        display: block;
+        position: absolute;
+        background: #EBE1FA;
+        box-shadow: 0 0 3px 1px #28e11c,
+            0 0 12px 2px #6ecf5deb;
+        transition: all 0.3s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+        border-radius: 1px;
+        z-index: -1;
+    }
+
+    &:before,
+    &:after {
+        width: 25%;
+        height: 1px;
+    }
+
+    span:before,
+    span:after {
+        width: 1px;
+        height: 25%;
+    }
+
+    &:before,
+    span:before {
+        top: 0;
+        left: 0;
+    }
+
+    &:after,
+    span:after {
+        bottom: 0;
+        right: 0;
+    }
+
+    &:hover:before,
+    &:hover:after {
+        width: 100%;
+    }
+
+    &:hover span:before,
+    &:hover span:after {
+        height: 100%;
+    }
+}

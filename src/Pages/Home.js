@@ -99,15 +99,14 @@ function Home() {
     const ModalComponent=()=>{
         return (
             <div
-                className="modal show"
-                style={{ display: 'block', position: 'initial' }}>
-                <Modal.Dialog>
+                className="modal show custom-modal"
+                style={{ display: 'block', position: 'initial'}}>
+                <Modal.Dialog style={{ boxShadow: '-1px 3px 22px #FCCF47'}}>
                     <Modal.Header closeButton onClick={() => setshowmodal(false)}> 
                         <Modal.Title>
                              <Stack direction="row" spacing={4} >
                                 <Avatar style={{
-                                    border: '2px solid black', height:'100px',
-                                    width:'100px'}} src={profilepicture} />
+                                    border: '2px solid black', height:'100px',width:'100px'}} src={profilepicture} />
                                 <h2 style={{ margin: 'auto', position: 'relative', right: '-34px', color: 'black', fontWeight:'unset'}}> {selectdata.name}</h2>
                              </Stack>
                         </Modal.Title>
@@ -117,11 +116,11 @@ function Home() {
                             <div>
                                 {/* <h2>Personal info</h2> */}
                                 <ListGroup variant="flush"style={{textAlign:'justify'}} >
-                                    <ListGroup.Item><PersonIcon/>:{selectdata.name}</ListGroup.Item>
-                                    <ListGroup.Item><LocationOnIcon/>:{selectdata.address}</ListGroup.Item>
-                                    <ListGroup.Item><PhoneIcon/>:{selectdata.phone}</ListGroup.Item>
-                                    <ListGroup.Item>{(selectdata.gender === 'male' || 'Male') ? <FaceIcon /> :<Face3Icon />} :{selectdata.gender}</ListGroup.Item>
-                                    <ListGroup.Item><InterestsIcon/>:{selectdata.hobbies}</ListGroup.Item>
+                                    <ListGroup.Item><PersonIcon />:{(selectdata.name) != "" ? selectdata.name :<strong style={{color:'red'}}>Not available</strong>}</ListGroup.Item>
+                                    <ListGroup.Item><LocationOnIcon />:{(selectdata.address)!= "" ? selectdata.address : <strong style={{ color: 'red' }}>Not available</strong>}</ListGroup.Item>
+                                    <ListGroup.Item><PhoneIcon />:{(selectdata.phone) != "" ? selectdata.phone : <strong style={{ color: 'red' }}>Not available</strong>}</ListGroup.Item>
+                                    <ListGroup.Item>{(selectdata.gender) === 'Female' ? <Face3Icon /> : <FaceIcon />}:{(selectdata.gender) != "" ? selectdata.gender:<strong style={{ color: 'red' }}>Not available</strong>}</ListGroup.Item>
+                                    <ListGroup.Item><InterestsIcon />:{(selectdata.hobbies) != "" ? selectdata.hobbies : <strong style={{ color: 'red' }}>Not available</strong>}</ListGroup.Item>
                                     {/* <ListGroup.Item>{selectdata.gender}</ListGroup.Item> */}
                                 </ListGroup>
                             </div>
@@ -163,19 +162,12 @@ function Home() {
                             </div>
                       </div>
                     </Modal.Body>
-{/* 
-                    <Modal.Body style={{ backgroundImage: `url(${profilepicture})`, color: 'white', backgroundColor:'#2e93898c' } }>
-                        <ul type='none' >
-                            <li>Name : {selectdata.name}</li>
-                            <li>Address : {selectdata.address}</li>
-                            <li>Phone : {selectdata.phone} </li>
-                            <li>Email : {selectdata.email}</li>
-                            <li>Gender : {selectdata.gender}</li>
-                            <li>Hobbies :  {selectdata.hobbies}</li>
-
-                        </ul>
-                    </Modal.Body> */}
                     <Modal.Footer>
+                        <Button variant="primary"><CreateIcon onClick={() => {
+                            setIsEditBtnClicked({
+                                show: true,
+                            }); setshowedit(true); setshowmodal(false); setIsAddBtnClicked(false)
+                        }}  ></CreateIcon></Button>
                         <Button variant="secondary" onClick={() => setshowmodal(false)} >Close</Button>
                     </Modal.Footer>
                 </Modal.Dialog>
@@ -208,7 +200,7 @@ const Edit =({editdatamodal, setfetchdata})=>{
         console.log(editdata)
         axios.put(`https://60d5a2c2943aa60017768b01.mockapi.io/candidate/${editdata.id}`,editdata).then(() => {
             // window.alert("record update successfully")
-            Swal.fire(
+            toast(
                 'Reccord Added Successfully',
             )
             setfetchdata(prev=>{
@@ -272,7 +264,7 @@ const Edit =({editdatamodal, setfetchdata})=>{
         if (window.confirm("ARE YOU SURE WANT TO DELETE")) {
             setIsLoading(true);
             axios.delete(`https://60d5a2c2943aa60017768b01.mockapi.io/candidate/${id}`).then(() => {
-                Swal.fire(
+                toast(
                     'Reccord Deleted Successfully',
                 )
                 getdata();
@@ -301,8 +293,8 @@ const Edit =({editdatamodal, setfetchdata})=>{
             <NavigationBar  setIsAddBtnClicked={setIsAddBtnClicked} setshowedit={setshowedit} setshowmodal={setshowmodal}></NavigationBar>
             <Container style={{
                 position: 'relative',
-                right:'30px'
-}} >
+                right:'30px',
+                top:'40px'}} >
         <Row>
                     <Col sm={4} >
                     {isLoading && <PageLoader isLoading={isLoading}></PageLoader>}
@@ -310,7 +302,7 @@ const Edit =({editdatamodal, setfetchdata})=>{
                             fetchdata.map((details)=>{
                                 const { profile_picture, name, id, email}=details
                                 return(
-                                    <List sx={{ width: '100%', maxWidth: 360, bgcolor:'#eee7e7' }} >
+                                    <List sx={{ width: '100%', maxWidth: 360 }} >
                                         <ListItem className='listitem ' onClick={() => { seteditdatamodal({
                                                                                     id:id,
                                                                                     name: name,
@@ -342,7 +334,7 @@ const Edit =({editdatamodal, setfetchdata})=>{
         <Col sm={8}>
                         {showmodal && <ModalComponent></ModalComponent>}
                         {/* {showedit && <Edit editdatamodal={editdatamodal} fetchdata={fetchdata} setfetchdata={setfetchdata}></Edit>} */}
-                        {isAddBtnClicked && <Add setfetchdata={setfetchdata} setIsLoading={setIsLoading} setselectdata={setselectdata} ></Add>}
+                        {isAddBtnClicked && <Add  setfetchdata={setfetchdata} setIsLoading={setIsLoading} setselectdata={setselectdata} ></Add>}
                         {isEditBtnClicked.show && <Add setfetchdata={setfetchdata} setIsLoading={setIsLoading} userData={isEditBtnClicked.data} ></Add>}
 
         </Col>

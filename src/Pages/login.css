@@ -1,9 +1,16 @@
-.logincard:hover{
+.logincard {
+    border-radius: 10% 10% 10% 10% !important;
     border: 1px solid black;
-        box-shadow: -1px 3px 22px black;
+    transition: all 0.5s ease linear cubic-bezier(0.445, 0.05, 0.55, 0.95);
+}
+.logincard:hover{
+    /* border-radius:32% 43% 57% 68%!important; */
+    border: 1px solid black;
+    box-shadow: -1px 3px 22px black;
 }
 .list-col{
     background-color: #eee7e7 !important;
+
 }
 .listitem:hover{
     box-shadow: -1px 0px 8px black;
@@ -19,7 +26,93 @@
         cursor: grabbing;
 }
 
+.custom-modal{
+/* animation-name: animate-splat;*/
+animation-name: animate-grow;
+    animation-duration: 0.3s;
+    animation-delay: 0s;
+    animation-timing-function: cubic-bezier(1, -0.01, 0, 0.99);
+    animation-fill-mode: backwards;
+}
+@keyframes animate-grow {
+    0% {
+        opacity: 0;
+        transform: scale(1, 0);
+        visibility: hidden;
+    }
 
+    100% {
+        opacity: 1;
+        transform: scale(1, 1);
+    }
+}
 .Education{
     margin-right: 50px;
 }
+
+.neon_border .custom-button{
+            background: transparent !important;
+            border: none !important;
+            color: black !important;
+            font-size: large !important;
+}
+.custom-button:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* .corner-button {
+    font-family: 'Lato', sans-serif;
+    letter-spacing: 0.02rem;
+    cursor: pointer;
+    background: transparent;
+    border: 0.5rem solid currentColor;
+    padding: 1.5rem 2rem;
+    font-size: 2.2rem;
+    color: #06c17f;
+    position: relative;
+    transition: color 0.3s;
+    z-index: 1;
+}
+
+.corner-button:hover {
+    color: pink;
+}
+
+.corner-button:hover::before {
+    width: 0;
+}
+
+.corner-button:hover::after {
+    height: 0;
+}
+
+.corner-button:active {
+    border-width: 0.25rem;
+}
+
+.corner-button::before,
+.corner-button::after {
+    content: '';
+    position: absolute;
+    background: #2f2f2f;
+    z-index: -1;
+    transition: all 0.3s;
+}
+
+.corner-button::before {
+    width: calc(100% - 3rem);
+    height: calc(101% + 1rem);
+    top: -0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.corner-button::after {
+    height: calc(100% - 3rem);
+    width: calc(101% + 1rem);
+    left: -0.5rem;
+    top: 50%;
+    transform: translateY(-50%); 
+}    
+*/

@@ -19,6 +19,9 @@ import { DateRangePicker } from 'rsuite';
 import "rsuite/dist/rsuite.min.css";
 import EducationDeatils from './EducationDeatils';
 import Validation from "./Validation";
+import '../Pages/scss.scss'
+import '../Pages/login.css'
+
 
 const From = ({ setstep, step, setfetchdata, setIsLoading, userData, setselectdata }) => {
     const [datepicker, setdatepicker] = useState([
@@ -81,12 +84,6 @@ const From = ({ setstep, step, setfetchdata, setIsLoading, userData, setselectda
         setSkills([...skills, { skillName: '', experienceInMonths: '' }]);
     };
 
-    // const handleSkillChange = (event, index) => {
-    //     const { name, value } = event?.target;
-    //     const list = [...skills];
-    //     list[index][name] = value;
-    //     setSkills(list);
-    // };
 
     const handleSkillChange = (event, index, config = { isDatePicker: false, name: "" }) => {
         debugger
@@ -215,8 +212,16 @@ const From = ({ setstep, step, setfetchdata, setIsLoading, userData, setselectda
                     );
                 })}
                 <div style={{ position: 'relative', top: '50px' }}>
-                    <Button variant="light" onClick={() => { if (step > 1) setstep(step - 1) }} disabled={(step === 1) ? true : false} style={{ marginRight: '10px' }}>Previous</Button>
-                    <Button variant="light" onClick={() => { if (step < 4) { setstep(step + 1) }}} style={(step === 4) ? { display: 'none' } : undefined} >Next</Button>
+                    <div className="neon_border">
+                        <span>
+                            <Button className="custom-button"  onClick={() => { if (step > 1) setstep(step - 1) }} disabled={(step === 1) ? true : false} style={{ marginRight: '10px' }}>Previous</Button>
+                        </span>
+                    </div>
+                    <div className="neon_border">
+                        <span>
+                            <Button className="custom-button"  onClick={() => { if (step < 4) { setstep(step + 1) } }} style={(step === 4) ? { display: 'none' } : undefined} >Next</Button>
+                        </span>
+                    </div>
                     {(step === 4) && <Button variant='outline' type='submit'>Submit</Button>}
                 </div>
             </div>
@@ -275,9 +280,17 @@ const From = ({ setstep, step, setfetchdata, setIsLoading, userData, setselectda
                     );
                 })}
                 <div style={{ position: 'relative', top: '50px' }}>
-                    <Button variant="light" onClick={() => { if (step > 1) setstep(step - 1) }} disabled={(step === 1) ? true : false} style={{ marginRight: '10px' }}>Previous</Button>
-                    <Button variant="light" onClick={() => { if (step < 4) { setstep(step + 1) } }} style={(step === 4) ? { display: 'none' } : undefined} >Next</Button>
-                    {(step === 4) && <Button variant='outline' type='submit'>Submit</Button>}
+                    <div className="neon_border">
+                        <span>
+                            <Button className="custom-button"  onClick={() => { if (step > 1) setstep(step - 1) }} disabled={(step === 1) ? true : false} style={{ marginRight: '10px' }}>Previous</Button>
+                        </span>
+                    </div>
+                    <div className="neon_border">
+                        <span>
+                            {(step === 4) && <Button type='submit'>Submit</Button>}
+                            <Button className="custom-button"  onClick={() => { if (step < 4) { setstep(step + 1) } }} style={(step === 4) ? { display: 'none' } : undefined} >Next</Button>
+                        </span>
+                    </div>
                 </div>
              </div>
 
@@ -300,6 +313,7 @@ const From = ({ setstep, step, setfetchdata, setIsLoading, userData, setselectda
                             editableDateInputs={true}
                             moveRangeOnFirstSelection={false}
                             ranges={datepicker}
+                            value={new Date()}
                             />
                         <hr />
                         <div>
@@ -315,13 +329,21 @@ const From = ({ setstep, step, setfetchdata, setIsLoading, userData, setselectda
                     </div>
                 ))}
                 {numEntries < 10 && (
-                    <Button variant='outline' onClick={handleAddExperience}><AddIcon></AddIcon></Button>
+                    <Button  variant='outline' onClick={handleAddExperience}><AddIcon></AddIcon></Button>
                 )}
                 {/* <Button variant='outline' type='submit' onClick={submitformdata}  >Submit</Button>  */}
                 <div style={{ position: 'relative', top: '50px' }}>
-                    <Button variant="light" onClick={() => { if (step > 1) setstep(step - 1) }} disabled={(step === 1) ? true : false} style={{ marginRight: '10px' }}>Previous</Button>
-                    <Button variant="light" onClick={() => { if (step < 4) { setstep(step + 1) } }} style={(step === 4) ? { display: 'none' } : undefined} >Next</Button>
-                    {(step === 4) && <Button variant='outline' type='submit'>Submit</Button>}
+                    <div className="neon_border">
+                        <span>
+                            <Button className="custom-button"  onClick={() => { if (step > 1) setstep(step - 1) }} disabled={(step === 1) ? true : false} style={{ marginRight: '10px' }}>Previous</Button>
+                        </span>
+                    </div>
+                    <div className="neon_border">
+                        <span>
+                            {(step === 4) && <Button variant='outline' type='submit'>Submit</Button>}
+                            <Button className="custom-button"  onClick={() => { if (step < 4) { setstep(step + 1) } }} style={(step === 4) ? { display: 'none' } : undefined} >Next</Button>
+                        </span>
+                    </div>
                 </div>
             </div>
 
@@ -336,17 +358,17 @@ function Add({setfetchdata, setIsLoading, userData}) {
    
 
     useEffect(()=>{
-        debugger
+        // debugger
         console.log(userData);
     },[])  // on component initialize, runs only one time of component render
     
 
     return (
         <div>
-            <From setstep={setstep} step={step} setfetchdata={setfetchdata} setIsLoading={setIsLoading} userData={userData}></From>
+            <From  setstep={setstep} step={step} setfetchdata={setfetchdata} setIsLoading={setIsLoading} userData={userData}></From>
             {/* <div style={{ position: 'relative', top: '50px' }}>
-                <Button variant="light" onClick={() => { if (step > 1) setstep(step - 1) }} disabled={(step === 1) ? true : false} style={{ marginRight: '10px' }}>Previous</Button>
-                <Button variant="light" onClick={() => { if (step < 4) { setstep(step + 1) } }} style={(step === 4) ? { display: 'none' } : undefined} >Next</Button>
+                <Button  onClick={() => { if (step > 1) setstep(step - 1) }} disabled={(step === 1) ? true : false} style={{ marginRight: '10px' }}>Previous</Button>
+                <Button  onClick={() => { if (step < 4) { setstep(step + 1) } }} style={(step === 4) ? { display: 'none' } : undefined} >Next</Button>
                 {(step === 4) && <Button variant='outline' type='submit'>Submit</Button>}
             </div> */}
         </div>
