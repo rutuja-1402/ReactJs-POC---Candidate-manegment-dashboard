@@ -30,7 +30,7 @@
 /* animation-name: animate-splat;*/
 animation-name: animate-grow;
     animation-duration: 0.3s;
-    animation-delay: 0s;
+    animation-delay: 0.3s;
     animation-timing-function: cubic-bezier(1, -0.01, 0, 0.99);
     animation-fill-mode: backwards;
 }

@@ -26,7 +26,7 @@ function Logout() {
     return (
         <div>
             <span className='me-3' style={{textTransform:'uppercase', color:'black'}} >Welcome {name}</span>
-            <Button variant="outlined" color="error" onClick={() => handleLogOut()}>logout</Button>
+            <Button style={{color:'black'}} variant="outlined" color="error" onClick={() => handleLogOut()}>logout</Button>
         </div>
     )
 }

@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button';
 import Validation from "./Validation";
 import '../Pages/scss.scss'
 import '../Pages/login.css'
+import Card from 'react-bootstrap/Card';
 
 
 const Personaldatafrom = ({ setstep, step, setsubmitdata, submitdata, setselectdata })=>{
@@ -72,8 +73,10 @@ const Personaldatafrom = ({ setstep, step, setsubmitdata, submitdata, setselectd
         setCheckdata({...checkdata, ...submitdata});
     },[])
 return(
-    
-        <div id='personal_info' style={{ width: 'auto', margin: 'auto', textAlign: 'start', position: 'relative', top: '50px' }}>
+    <Card style={{ border: '1px solid #fccf47', boxShadow:'0px 0px 30px #fccf47'}}>
+        <Card.Body>
+
+        <div id='personal_info' style={{ width: 'auto', margin: 'auto', textAlign: 'start'}}>
             <h2>Personal Details</h2>
             <Form >
                 <InputGroup hasValidation>
@@ -113,22 +116,28 @@ return(
                         <option value="value1" name='' >please select....</option>
                     </select>
                 </Form.Group>
+         
+                <Card.Footer style={{border:'none',background:'none',textAlign:'end'}}>
+                        <div >
+                            <div className="neon_border">
+                                <span>
+                                    <Button className="custom-button" onClick={() => { if (step > 1) setstep(step - 1) }} disabled={(step === 1) ? true : false} style={{ marginRight: '10px' }}>Previous</Button>
+                                </span>
+                            </div>
+                            <div className="neon_border">
+                                <span>
+                                    <Button className="custom-button" onClick={() => { if (step < 4) { setstep(step + 1); personaldataValidator(); } }} disabled={(errors && Object.keys(errors).length === 0) ? false : true} style={(step === 4) ? { display: 'none' } : undefined} >Next</Button>
+                                </span>
+                            </div>
+                            {(step === 4) && <Button variant='outline' type='submit'>Submit</Button>}
+                        </div>
+                </Card.Footer>
             </Form>
-            <div style={{ position: 'relative', top: '50px' }}>
-            <div className="neon_border">
-                <span>
-                    <Button className="custom-button"  onClick={() => { if (step > 1) setstep(step - 1) }} disabled={(step === 1) ? true : false} style={{ marginRight: '10px' }}>Previous</Button>
-                </span>
-            </div>
-            <div className="neon_border">
-                <span>
-                    <Button className="custom-button" onClick={() => { if (step < 4) { setstep(step + 1); personaldataValidator(); } }} disabled={(errors && Object.keys(errors).length === 0) ? false : true} style={(step === 4) ? { display: 'none' } : undefined} >Next</Button>
-                </span>
-            </div>
-                {(step === 4) && <Button variant='outline' type='submit'>Submit</Button>}
-            </div>
+
         </div>
-      
+
+        </Card.Body>
+    </Card>
 )
 };
 

@@ -296,7 +296,11 @@ const Edit =({editdatamodal, setfetchdata})=>{
                 right:'30px',
                 top:'40px'}} >
         <Row>
-                    <Col sm={4} >
+                    <Col sm={4} style={{
+                        height: '500px',
+                        overflowY: 'scroll',
+                        overflowX:'hidden',
+                        width:"400"}} >
                     {isLoading && <PageLoader isLoading={isLoading}></PageLoader>}
                         { !isLoading &&
                             fetchdata.map((details)=>{

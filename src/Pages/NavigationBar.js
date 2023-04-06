@@ -19,7 +19,7 @@ function NavigationBar({setIsAddBtnClicked, setshowmodal, setshowedit}) { // thi
     return (
         <Navbar style={{backgroundColor:'#FCCF47'}}>
             <Container>
-                <Navbar.Brand>New candidate<Button variant="text" onClick={() => { setshowmodal(false); setshowedit(false); setIsAddBtnClicked(true)}}> <PersonAddIcon></PersonAddIcon></Button></Navbar.Brand>
+                <Navbar.Brand>New candidate<Button style={{color:'black'}} variant="text" onClick={() => { setshowmodal(false); setshowedit(false); setIsAddBtnClicked(true)}}> <PersonAddIcon></PersonAddIcon></Button></Navbar.Brand>
                 <Navbar.Toggle />
                 <Navbar.Collapse className="justify-content-end">
                     <Navbar.Text>

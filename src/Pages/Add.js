@@ -21,6 +21,7 @@ import EducationDeatils from './EducationDeatils';
 import Validation from "./Validation";
 import '../Pages/scss.scss'
 import '../Pages/login.css'
+import Card from 'react-bootstrap/Card';
 
 
 const From = ({ setstep, step, setfetchdata, setIsLoading, userData, setselectdata }) => {
@@ -160,71 +161,75 @@ const From = ({ setstep, step, setfetchdata, setIsLoading, userData, setselectda
 
         case 2:
             // return <EducationDeatils setstep={setstep} step={step} education={education} set={setEducation}></EducationDeatils>
-            return <div style={{ width: 'auto', margin: 'auto', textAlign: 'start', position: 'relative', top: '50px' }}>
-                <h2>Education</h2>
-                {education && education.map((edu, index) => {
-                    return (
-                        <div key={index}>
-                            <Container>
-                                <Row>
-                                    <Col md={5} >
-                                        <Form.Group className="mb-3" controlId="formBasicEmail">
-                                            <Form.Label>Name of Institute</Form.Label>
-                                            <Form.Control
-                                                type="text"
-                                                placeholder="Name of School/College/Institute"
-                                                name="schoolName"
-                                                value={edu.schoolName}
-                                                onChange={(event) => handleEducationChange(event, index)}
-                                                required
-                                            />
-                                            {/* {eduerrors?.schoolName && <span style={{ color: 'red' }} >*{eduerrors.schoolName}</span>} */}
-                                        </Form.Group></Col>
-                                    <Col md={5}>
-                                        <Form.Group className="mb-3" controlId="formBasicEmail">
-                                            <Form.Label>Year of Graduation</Form.Label>
-                                            <Form.Control
-                                                type="text"
-                                                placeholder="Year of Graduation"
-                                                name="yearOfGraduation"
-                                                value={edu.yearOfGraduation}
-                                                onChange={(event) => handleEducationChange(event, index)}
-                                                required
-                                            />
-                                        </Form.Group>
-                                    </Col>
-                                    <Col md={1} > <Tooltip title="Click to add more inpute">
-                                        <Button variant='outline' onClick={addEducation}><AddIcon ></AddIcon></Button>
-                                    </Tooltip>
-                                    </Col>
-                                    <Col md={1}>  <div>
-                                        {index !== 0 && (
-                                            <Tooltip title='Click to remove inpute filed'>
-                                                <Button variant='outline' onClick={() => removeEducation(index)}><RemoveCircleOutlineIcon></RemoveCircleOutlineIcon></Button>
+            return <Card>
+                <Card.Body>
+                    <div style={{ width: 'auto', margin: 'auto', textAlign: 'start', position: 'relative', top: '50px' }}>
+                        <h2>Education</h2>
+                        {education && education.map((edu, index) => {
+                            return (
+                                <div key={index}>
+                                    <Container>
+                                        <Row>
+                                            <Col md={5} >
+                                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                                    <Form.Label>Name of Institute</Form.Label>
+                                                    <Form.Control
+                                                        type="text"
+                                                        placeholder="Name of School/College/Institute"
+                                                        name="schoolName"
+                                                        value={edu.schoolName}
+                                                        onChange={(event) => handleEducationChange(event, index)}
+                                                        required
+                                                    />
+                                                    {/* {eduerrors?.schoolName && <span style={{ color: 'red' }} >*{eduerrors.schoolName}</span>} */}
+                                                </Form.Group></Col>
+                                            <Col md={5}>
+                                                <Form.Group className="mb-3" controlId="formBasicEmail">
+                                                    <Form.Label>Year of Graduation</Form.Label>
+                                                    <Form.Control
+                                                        type="text"
+                                                        placeholder="Year of Graduation"
+                                                        name="yearOfGraduation"
+                                                        value={edu.yearOfGraduation}
+                                                        onChange={(event) => handleEducationChange(event, index)}
+                                                        required
+                                                    />
+                                                </Form.Group>
+                                            </Col>
+                                            <Col md={1} > <Tooltip title="Click to add more inpute">
+                                                <Button variant='outline' onClick={addEducation}><AddIcon ></AddIcon></Button>
                                             </Tooltip>
-                                        )}
-                                    </div></Col>
+                                            </Col>
+                                            <Col md={1}>  <div>
+                                                {index !== 0 && (
+                                                    <Tooltip title='Click to remove inpute filed'>
+                                                        <Button variant='outline' onClick={() => removeEducation(index)}><RemoveCircleOutlineIcon></RemoveCircleOutlineIcon></Button>
+                                                    </Tooltip>
+                                                )}
+                                            </div></Col>
 
-                                </Row>
-                            </Container>
+                                        </Row>
+                                    </Container>
 
+                                </div>
+                            );
+                        })}
+                        <div style={{ position: 'relative', top: '50px' }}>
+                            <div className="neon_border">
+                                <span>
+                                    <Button className="custom-button" onClick={() => { if (step > 1) setstep(step - 1) }} disabled={(step === 1) ? true : false} style={{ marginRight: '10px' }}>Previous</Button>
+                                </span>
+                            </div>
+                            <div className="neon_border">
+                                <span>
+                                    <Button className="custom-button" onClick={() => { if (step < 4) { setstep(step + 1) } }} style={(step === 4) ? { display: 'none' } : undefined} >Next</Button>
+                                </span>
+                            </div>
+                            {(step === 4) && <Button variant='outline' type='submit'>Submit</Button>}
                         </div>
-                    );
-                })}
-                <div style={{ position: 'relative', top: '50px' }}>
-                    <div className="neon_border">
-                        <span>
-                            <Button className="custom-button"  onClick={() => { if (step > 1) setstep(step - 1) }} disabled={(step === 1) ? true : false} style={{ marginRight: '10px' }}>Previous</Button>
-                        </span>
                     </div>
-                    <div className="neon_border">
-                        <span>
-                            <Button className="custom-button"  onClick={() => { if (step < 4) { setstep(step + 1) } }} style={(step === 4) ? { display: 'none' } : undefined} >Next</Button>
-                        </span>
-                    </div>
-                    {(step === 4) && <Button variant='outline' type='submit'>Submit</Button>}
-                </div>
-            </div>
+                </Card.Body>
+            </Card>
         case 3:
             return <div style={{ width: 'auto', margin: 'auto', textAlign: 'start', position: 'relative', top: '50px' }}>
                 <h2>Skills</h2>
@@ -354,8 +359,6 @@ const From = ({ setstep, step, setfetchdata, setIsLoading, userData, setselectda
 
 function Add({setfetchdata, setIsLoading, userData}) {
     const [step, setstep] = useState(1);
-
-   
 
     useEffect(()=>{
         // debugger
