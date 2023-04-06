@@ -28,7 +28,7 @@
 
 .custom-modal{
     animation-name: animate-grow;
-    animation-duration: 0.3s;
+    animation-duration: 0.7s;
     animation-delay: 0.3s;
     animation-timing-function: cubic-bezier(1, -0.01, 0, 0.99);
     animation-fill-mode: backwards;
@@ -37,7 +37,7 @@
     0% {
         opacity: 0;
         transform: scale(1, 0);
-        visibility: hidden;
+      
     }
 
     100% {
