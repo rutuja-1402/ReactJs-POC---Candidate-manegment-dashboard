@@ -101,7 +101,7 @@ function Home() {
             <div
                 className="modal show custom-modal"
                 style={{ display: 'block', position: 'initial'}}>
-                <Modal.Dialog style={{ boxShadow: '-1px 3px 22px #FCCF47'}}>
+                <Modal.Dialog style={{ boxShadow: '0px 0px 10px black'}}>
                     <Modal.Header closeButton onClick={() => setshowmodal(false)}> 
                         <Modal.Title>
                              <Stack direction="row" spacing={4} >
@@ -125,7 +125,7 @@ function Home() {
                                 </ListGroup>
                             </div>
                             <div className='Education'>
-                                <div  >
+                                <div >
                                     {/* <h3>Education</h3> */}
                                     <Table striped bordered hover>
                                         <thead>
@@ -136,11 +136,12 @@ function Home() {
                                         </thead>
                                         <tbody>
                                              {
-                                                fetchdata.map((details) => {
-                                                    console.log(details)
+                                              selectdata?.education &&  selectdata.education.map((education) => {
+                                                    console.log(education)
                                                     return (
                                                         <tr>
-                                                            {/* <td>{details.education[0]}</td> */}
+                                                            <td>{education.institute}</td>
+                                                            <td>{education.pass_out_year}</td>
                                                         </tr>
                                                     )
                                                 })
@@ -157,17 +158,25 @@ function Home() {
                                                 <th>Experience in months</th>
                                             </tr>
                                         </thead>
+                                        <tbody>
+                                             {
+                                              selectdata?.skills &&  selectdata.skills.map((skill) => {
+                                                    console.log(skill)
+                                                    return (
+                                                        <tr>
+                                                            <td>{skill.name}</td>
+                                                            <td>{skill.experience}</td>
+                                                        </tr>
+                                                    )
+                                                })
+                                             }
+                                        </tbody>
                                     </Table>
                                 </div>
                             </div>
                       </div>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="primary"><CreateIcon onClick={() => {
-                            setIsEditBtnClicked({
-                                show: true,
-                            }); setshowedit(true); setshowmodal(false); setIsAddBtnClicked(false)
-                        }}  ></CreateIcon></Button>
                         <Button variant="secondary" onClick={() => setshowmodal(false)} >Close</Button>
                     </Modal.Footer>
                 </Modal.Dialog>
@@ -290,7 +299,7 @@ const Edit =({editdatamodal, setfetchdata})=>{
 
     return (
         <div >
-            <NavigationBar  setIsAddBtnClicked={setIsAddBtnClicked} setshowedit={setshowedit} setshowmodal={setshowmodal}></NavigationBar>
+            <NavigationBar  setIsEditBtnClicked={setIsEditBtnClicked} setIsAddBtnClicked={setIsAddBtnClicked} setshowmodal={setshowmodal}></NavigationBar>
             <Container style={{
                 position: 'relative',
                 right:'30px',
@@ -320,12 +329,10 @@ const Edit =({editdatamodal, setfetchdata})=>{
                                                    <img src={profile_picture}  ></img>
                                                 </Avatar>
                                             </ListItemAvatar>
-                                            <ListItemText className='listdata' primary={name} style={{color:'black'}} onClick={() => { setshowmodal(true); setshowedit(false); showdata(id); setIsAddBtnClicked(false) }}/>
+                                            <ListItemText className='listdata' primary={name} style={{color:'black'}} onClick={() => { setshowmodal(true); setshowedit(false); showdata(id); setIsAddBtnClicked(false); setIsEditBtnClicked(prev=>{return {...prev, show:false}}) }}/>
                                             <CreateIcon onClick={() => { setIsEditBtnClicked({
                                                                                     show:true,
-                                                                                    data:details
-                                                                                
-                                            }); setshowedit(true); setshowmodal(false); setIsAddBtnClicked(false)}}  ></CreateIcon>
+                                                                                    data:details}); setshowedit(true); setshowmodal(false); setIsAddBtnClicked(false)}}  ></CreateIcon>
                                             <DeleteIcon onClick={() => deletid(id)}></DeleteIcon>
                                         </ListItem>
                                     </List>

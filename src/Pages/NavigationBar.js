@@ -8,7 +8,7 @@ import React , {useState} from 'react';
 import { Routes, Route, useNavigate, Link } from 'react-router-dom';
 
 
-function NavigationBar({setIsAddBtnClicked, setshowmodal, setshowedit}) { // this props are passed while calling the component in the file
+function NavigationBar({setIsAddBtnClicked, setshowmodal, setIsEditBtnClicked}) { // this props are passed while calling the component in the file
 
     // const navigate = useNavigate();
     // const [showadd, setshowadd] = useState(false)
@@ -19,7 +19,7 @@ function NavigationBar({setIsAddBtnClicked, setshowmodal, setshowedit}) { // thi
     return (
         <Navbar style={{backgroundColor:'#FCCF47'}}>
             <Container>
-                <Navbar.Brand>New candidate<Button style={{color:'black'}} variant="text" onClick={() => { setshowmodal(false); setshowedit(false); setIsAddBtnClicked(true)}}> <PersonAddIcon></PersonAddIcon></Button></Navbar.Brand>
+                <Navbar.Brand>New candidate<Button style={{ color: 'black' }} variant="text" onClick={() => { setshowmodal(false); setIsEditBtnClicked((prev)=>{ return {...prev,"show":false} }); setIsAddBtnClicked(true) }}> <PersonAddIcon></PersonAddIcon></Button></Navbar.Brand>
                 <Navbar.Toggle />
                 <Navbar.Collapse className="justify-content-end">
                     <Navbar.Text>

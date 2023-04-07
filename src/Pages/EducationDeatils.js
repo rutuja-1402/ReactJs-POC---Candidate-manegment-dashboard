@@ -26,7 +26,6 @@ function EducationDeatils(step, setstep,education,setEducation) {
         list.splice(index, 1);
         setEducation(list);
     };
-
     return (
         <div style={{ width: 'auto', margin: 'auto', textAlign: 'start', position: 'relative', top: '50px' }}>
             <h2>Education</h2>

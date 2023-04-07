@@ -8,12 +8,12 @@ export default function Validation(checkdata, isFemaleChecked, isMaleChecked){
     const namepattern = /^[a-zA-Z'-\. ]+$/;
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-    if(checkdata.id===""){
-        errors.id="ID required"
-    }
-    if(!idpattern.test(checkdata.id)){
-        errors.id="ID shouls be in numeric formate"
-    }
+    // if(checkdata.id===""){
+    //     errors.id="ID required"
+    // }
+    // if(!idpattern.test(checkdata.id)){
+    //     errors.id="ID shouls be in numeric formate"
+    // }
     // if(checkdata.id===id){
     //     errors.id="ID should be unique"
     // }
