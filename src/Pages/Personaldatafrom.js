@@ -83,7 +83,7 @@ const Personaldatafrom = ({ setstep, step, setsubmitdata, submitdata, setselectd
             { text: "Drawing", value: "Drawing" },
             { text: "Reading", value: "Reading" },
             { text: "Playing", value: "Playing" },
-            { text: "Travel", value: "Rravel" },
+            { text: "Travel", value: "Travel" },
             { text: "Explore", value: "Explore" },
             { text: "Music", value: "Music" },
           ],
@@ -178,7 +178,7 @@ return(
                             </div>
                             <div className="neon_border">
                                 <span>
-                                    <Button className="custom-button" onClick={() => { if (step < 4) { setstep(step + 1); personaldataValidator(); } }} disabled={(errors && Object.keys(errors).length === 0) ? false : true} style={(step === 4) ? { display: 'none' } : undefined} >Next</Button>
+                                    <Button className="custom-button" onClick={() => { if (step < 4) { setstep(step + 1); personaldataValidator(); } }} disabled={(errors && Object.keys(errors).length === 0) ? false: true} style={(step === 4) ? { display: 'none' } : undefined} >Next</Button>
                                 </span>
                             </div>
                             {(step === 4) && <Button variant='outline' type='submit'>Submit</Button>}

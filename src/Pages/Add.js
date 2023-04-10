@@ -420,7 +420,7 @@ debugger
 
                 //    }) 
                    <div key={index}>
-                        <Form.Label>Company Name {index}</Form.Label>
+                        <Form.Label>Company Name {index+1}</Form.Label>
                         <Form.Control type="text" name="company" value={experienceDetails[index]?.company} 
                          onChange={(event) => handleExperienceChange(event, index)}
                         />

@@ -37,7 +37,7 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import InterestsIcon from '@mui/icons-material/Interests';
 import Face3Icon from '@mui/icons-material/Face3';
 import FaceIcon from '@mui/icons-material/Face';
-
+import ClearIcon from '@mui/icons-material/Clear';
 
 
 //implementation of page loader
@@ -102,7 +102,7 @@ function Home() {
                 className="modal show custom-modal"
                 style={{ display: 'block', position: 'initial'}}>
                 <Modal.Dialog style={{ boxShadow: '0px 0px 10px black'}}>
-                    <Modal.Header closeButton onClick={() => setshowmodal(false)}> 
+                    <Modal.Header >
                         <Modal.Title>
                              <Stack direction="row" spacing={4} >
                                 <Avatar style={{
@@ -110,6 +110,9 @@ function Home() {
                                 <h2 style={{ margin: 'auto', position: 'relative', right: '-34px', color: 'black', fontWeight:'unset'}}> {selectdata.name}</h2>
                              </Stack>
                         </Modal.Title>
+                        <Button style={{ alignContent: 'end' }} variant="text" color="error" onClick={() => setshowmodal(false)}>
+                            <ClearIcon/>
+                        </Button> 
                     </Modal.Header>
                     <Modal.Body>
                       <div style={{display:'flex'}}>
